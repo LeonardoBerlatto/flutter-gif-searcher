@@ -10,17 +10,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     Map<HomeEvent, Function> mapEventIntoAction = Map();
-    mapEventIntoAction.putIfAbsent(HomeStarted(), _loadFirst);
-    mapEventIntoAction.putIfAbsent(HomeFetched(), _fetchMore);
+    mapEventIntoAction.putIfAbsent(HomeStarted(), _loadHome);
+    mapEventIntoAction.putIfAbsent(HomeFetched(), _fetch);
 
     mapEventIntoAction[event]();
   }
 
-  _fetchMore() {
+  _fetch() {
     //TODO: implement fetch more
   }
 
-  _loadFirst() {
+  _loadHome() {
     //TODO: implement load first gifs
   }
 }
