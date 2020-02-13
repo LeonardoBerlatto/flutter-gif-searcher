@@ -1,8 +1,9 @@
 import 'package:gif_searcher/constants/config_constant.dart';
-import 'package:gif_searcher/utils/base_provider.dart';
 import 'package:gif_searcher/home/models/gif_model.dart';
 
-class HomeProvider {
+import 'base_provider.dart';
+
+class GifProvider {
   static final String _defaultRating = 'G';
 
   BaseProvider baseProvider =

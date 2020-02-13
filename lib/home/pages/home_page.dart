@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gif_searcher/home/home_bloc.dart';
 import 'package:gif_searcher/home/index.dart';
@@ -22,12 +23,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: BlocProvider(
-        create: (context) => HomeBloc()..add(HomeStarted()),
-        child: HomePage(),
-      ),
-    );
+    return BlocBuilder<HomeBloc, HomeState>(
+        builder: (final BuildContext context, final HomeState state) {
+      if (state is HomeLoaded) {
+        return ListView.builder(itemBuilder: (BuildContext context, int index) {
+          return Text(state.loadedGifs[index].title);
+        });
+      }
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    });
   }
 
   void _onScroll() {
