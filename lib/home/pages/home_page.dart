@@ -10,14 +10,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _scrollController = ScrollController();
-  final _scrollThreshold = 200.0;
   HomeBloc _homeBloc;
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_onScroll);
     _homeBloc = BlocProvider.of<HomeBloc>(context);
   }
 
@@ -25,22 +22,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
         builder: (final BuildContext context, final HomeState state) {
-      if (state is HomeLoaded) {
-        return ListView.builder(itemBuilder: (BuildContext context, int index) {
-          return Text(state.loadedGifs[index].title);
-        });
-      }
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      return Container();
     });
   }
 
-  void _onScroll() {
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.position.pixels;
-    if (maxScroll - currentScroll <= _scrollThreshold) {
-      _homeBloc.add(HomeFetched());
-    }
-  }
 }
