@@ -10,10 +10,11 @@ abstract class HomeEvent extends Equatable {
 class HomeStarted extends HomeEvent {}
 
 class HomeFetched extends HomeEvent {
-  final int lastPageFetched;
+  final int startingIndexToFetch;
+  final String keyword;
 
   @override
-  List<Object> get props => [lastPageFetched];
+  List<Object> get props => [startingIndexToFetch, keyword];
 
-  const HomeFetched({this.lastPageFetched});
+  const HomeFetched({this.startingIndexToFetch, this.keyword});
 }
