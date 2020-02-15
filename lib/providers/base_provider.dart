@@ -1,36 +1,41 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
-class BaseProvider {
+abstract class BaseProvider<E> {
   final String baseUrl;
 
-  const BaseProvider({this.baseUrl});
+  Dio _client;
+
+  BaseProvider({this.baseUrl}) {
+    this._client = _getClient();
+  }
+
+  Dio _getClient() {
+    return Dio(BaseOptions(baseUrl: baseUrl));
+  }
 
   Future get(final String url) async {
-    final response = await http.get('$baseUrl$url');
+    final response = await _client.get('$baseUrl$url');
     return _handleResponse(response);
   }
 
   Future post(final String url, final Object body) async {
-    final response = await http.post('$baseUrl$url', body: body);
+    final response = await _client.post('$baseUrl$url', data: body);
     return _handleResponse(response);
   }
 
   Future put(final String url, {final Object body}) async {
-    final response = await http.put('$baseUrl$url', body: body);
+    final response = await _client.put('$baseUrl$url', data: body);
     return _handleResponse(response);
   }
 
   Future delete(final String url) async {
-    final response = await http.delete('$baseUrl$url');
+    final response = await _client.delete('$baseUrl$url');
     return _handleResponse(response);
   }
 
-  _handleResponse(http.Response response) {
-    if (response.statusCode == 200) {
-      return json.decode(response.body)['data'];
-    }
-    throw Exception(json.decode(response.body)['error']);
+  _handleResponse(Response response) {
+    return response.data['data'];
   }
 }
