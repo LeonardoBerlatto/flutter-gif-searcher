@@ -8,4 +8,7 @@ class GifRepository {
 
   Future<List<GifModel>> fetchGifs(final int numberOfGifs) =>
       _gifProvider.fetchGifs(numberOfGifs);
+
+  Future<List<GifModel>> searchGifs(final String keyword, final int offset, final int limit) =>
+      _gifProvider.searchGifs(keyword, offset, limit);
 }
