@@ -11,10 +11,13 @@ class GifSearcherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Infinite Scroll',
+      theme: ThemeData(scaffoldBackgroundColor: Colors.black),
+      debugShowCheckedModeBanner: false,
+      title: 'Gif Searcher',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Posts'),
+          backgroundColor: Colors.black,
+          title: Image.network('https://developers.giphy.com/branch/master/static/header-logo-8974b8ae658f704a5b48a2d039b8ad93.gif'),
         ),
         body: BlocProvider(
           create: (context) =>
