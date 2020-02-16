@@ -27,7 +27,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Future<HomeState> _fetch(
       String keyword, final int startingIndexToFetch) async {
-    final gifs = await gifRepository.searchGifs('', startingIndexToFetch, 50);
+    final gifs = await gifRepository.searchGifs(keyword, startingIndexToFetch, 50);
     return HomeLoaded(loadedGifs: gifs);
   }
 
