@@ -10,6 +10,7 @@ import 'index.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GifRepository gifRepository;
+  static final int defaultFetchLimit = 15;
 
   HomeBloc({@required this.gifRepository});
 
@@ -19,20 +20,27 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   @override
   Stream<HomeState> mapEventToState(final HomeEvent event) async* {
     if (event is HomeFetched) {
-      yield await _fetch(event.keyword, event.startingIndexToFetch);
+      yield await _search(
+          event.keyword, event.startingIndexToFetch, event.isFetching);
     } else {
       yield await _loadHome();
     }
   }
 
-  Future<HomeState> _fetch(
-      String keyword, final int startingIndexToFetch) async {
-    final gifs = await gifRepository.searchGifs(keyword, startingIndexToFetch, 50);
+  Future<HomeState> _search(
+      String keyword, final int startingIndexToFetch, bool isFetching) async {
+    final gifs = await gifRepository.searchGifs(
+        keyword, startingIndexToFetch, defaultFetchLimit);
+
+    if (isFetching) {
+      gifs.insertAll(0, state.loadedGifs);
+    }
+
     return HomeLoaded(loadedGifs: gifs);
   }
 
   Future<HomeState> _loadHome() async {
-    final gifs = await gifRepository.fetchGifs(50);
+    final gifs = await gifRepository.fetchGifs(defaultFetchLimit);
     return HomeLoaded(loadedGifs: gifs);
   }
 }
