@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gif_searcher/home/index.dart';
 import 'package:gif_searcher/repositories/gif_repository.dart';
+import 'package:gif_searcher/theme/style.dart';
 
 import 'home/pages/home_page.dart';
 
@@ -11,13 +12,15 @@ class GifSearcherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: Colors.black),
+      theme: appTheme(),
       debugShowCheckedModeBanner: false,
       title: 'Gif Searcher',
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: Image.network('https://developers.giphy.com/branch/master/static/header-logo-8974b8ae658f704a5b48a2d039b8ad93.gif'),
+          brightness: Brightness.dark,
+          title: Image.network(
+              'https://developers.giphy.com/branch/master/static/header-logo-8974b8ae658f704a5b48a2d039b8ad93.gif'),
         ),
         body: BlocProvider(
           create: (context) =>
