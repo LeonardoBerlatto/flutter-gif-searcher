@@ -33,26 +33,31 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _handleSearch(String text) {
-    if (text.isNotEmpty) {
-      _homeBloc.add(HomeFetched(
-          isFetching: false,
-          keyword: text,
-          startingIndexToFetch: 0));
-    } else {
-      _homeBloc.add(HomeStarted());
-    }
-  }
-
   void _onScroll() {
     final double maxScroll = _scrollController.position.maxScrollExtent;
     final double currentScroll = _scrollController.position.pixels;
+
     if (maxScroll == currentScroll) {
-      _homeBloc.add(HomeFetched(
-          isFetching: true,
-          keyword: _textController.text,
-          startingIndexToFetch: this._homeBloc.state.loadedGifs.length + 1));
+      _loadMore(
+          text: _textController.text,
+          numberOfGisLoaded: this._homeBloc.state.loadedGifs.length,
+          isSearchFetching: true);
     }
+  }
+
+  _loadMore(
+      {String text = '', int numberOfGisLoaded = 0, isSearchFetching = false}) {
+    if (text.isNotEmpty) {
+      _homeBloc.add(HomeSearched(
+          isFetching: isSearchFetching,
+          keyword: _textController.text,
+          startingIndexToFetch: numberOfGisLoaded == 0
+              ? 0
+              : this._homeBloc.state.loadedGifs.length + 1));
+      return;
+    }
+    _homeBloc.add(HomeFetched(
+        numberOfGifsToFetch: numberOfGisLoaded + 15, isLoadingMore: true));
   }
 
   @override
@@ -69,8 +74,8 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(color: Colors.white, fontSize: 18.0),
               textAlign: TextAlign.center,
               decoration: InputDecoration(labelText: 'Search Gifs'),
-              onSubmitted: (String text) {
-                _handleSearch(text);
+              onChanged: (String text) {
+                _loadMore(text: text);
               },
             ),
           ),

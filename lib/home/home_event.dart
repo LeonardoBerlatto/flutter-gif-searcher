@@ -8,9 +8,15 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class HomeStarted extends HomeEvent {}
-
 class HomeFetched extends HomeEvent {
+  final int numberOfGifsToFetch;
+  final bool isLoadingMore;
+
+  HomeFetched(
+      {@required this.numberOfGifsToFetch, @required this.isLoadingMore});
+}
+
+class HomeSearched extends HomeEvent {
   final int startingIndexToFetch;
   final String keyword;
   final bool isFetching;
@@ -18,6 +24,8 @@ class HomeFetched extends HomeEvent {
   @override
   List<Object> get props => [startingIndexToFetch, keyword];
 
-  const HomeFetched(
-      {@required this.startingIndexToFetch, @required this.keyword, @required this.isFetching});
+  const HomeSearched(
+      {@required this.startingIndexToFetch,
+      @required this.keyword,
+      @required this.isFetching});
 }

@@ -23,8 +23,8 @@ class GifSearcherApp extends StatelessWidget {
               'https://developers.giphy.com/branch/master/static/header-logo-8974b8ae658f704a5b48a2d039b8ad93.gif'),
         ),
         body: BlocProvider(
-          create: (context) =>
-              HomeBloc(gifRepository: new GifRepository())..add(HomeStarted()),
+          create: (context) => HomeBloc(gifRepository: new GifRepository())
+            ..add(HomeFetched(numberOfGifsToFetch: 15, isLoadingMore: false)),
           child: HomePage(),
         ),
       ),
