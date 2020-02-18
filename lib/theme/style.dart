@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 ThemeData appTheme() {
   return ThemeData(
+      appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: Colors.white)),
+      primaryTextTheme: TextTheme(title: TextStyle(color: Colors.white)),
       primaryColor: Colors.white,
       scaffoldBackgroundColor: Colors.black,
       inputDecorationTheme: InputDecorationTheme(
