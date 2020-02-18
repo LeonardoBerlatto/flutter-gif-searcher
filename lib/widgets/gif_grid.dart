@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gif_searcher/home/models/gif_model.dart';
+import 'package:gif_searcher/home/pages/gif_page.dart';
 import 'package:gif_searcher/widgets/loader.dart';
 
 class GifGrid extends StatelessWidget {
@@ -21,11 +22,11 @@ class GifGrid extends StatelessWidget {
           ),
           itemCount: gifList.length + 1,
           itemBuilder: (BuildContext context, int index) =>
-              _renderGifOrLoaderByIndex(index)),
+              _renderGifOrLoaderByIndex(index, context)),
     );
   }
 
-  _renderGifOrLoaderByIndex(int index) {
+  _renderGifOrLoaderByIndex(int index, BuildContext context) {
     if (index < gifList.length) {
       return GestureDetector(
         child: Image.network(
@@ -33,6 +34,10 @@ class GifGrid extends StatelessWidget {
           height: 300,
           fit: BoxFit.cover,
         ),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) => GifPage(gif: gifList[index],)));
+        },
       );
     }
     return Loader();
