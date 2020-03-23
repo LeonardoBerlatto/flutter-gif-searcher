@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(color: Colors.white, fontSize: 18.0),
               textAlign: TextAlign.center,
               decoration: InputDecoration(labelText: 'Search Gifs'),
-              onChanged: (String text) {
+              onSubmitted: (String text) {
                 _loadMore(text: text);
               },
             ),
