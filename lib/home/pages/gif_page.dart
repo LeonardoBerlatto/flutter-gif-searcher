@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gif_searcher/home/models/gif_model.dart';
+import 'package:share/share.dart';
 
 class GifPage extends StatelessWidget {
   final GifModel gif;
@@ -12,7 +13,11 @@ class GifPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(gif.title),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.share), onPressed:() {
+            Share.share(gif.bitlyGifUrl);
+          } )
+        ],
       ),
       backgroundColor: Colors.black,
       body: Center(
