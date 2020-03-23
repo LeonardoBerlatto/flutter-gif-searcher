@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gif_searcher/constants/ui_constants.dart';
 import 'package:gif_searcher/home/index.dart';
 import 'package:gif_searcher/repositories/gif_repository.dart';
 import 'package:gif_searcher/theme/style.dart';
@@ -17,10 +18,7 @@ class GifSearcherApp extends StatelessWidget {
       title: 'Gif Searcher',
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
-          brightness: Brightness.dark,
-          title: Image.network(
-              'https://developers.giphy.com/branch/master/static/header-logo-8974b8ae658f704a5b48a2d039b8ad93.gif'),
+          title: Image.network(UIConstants.searchBarIconUrl),
         ),
         body: BlocProvider(
           create: (context) => HomeBloc(gifRepository: new GifRepository())
