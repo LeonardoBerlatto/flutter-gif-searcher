@@ -14,9 +14,9 @@ class GifPage extends StatelessWidget {
         title: Text(gif.title),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.share), onPressed:() {
-            Share.share(gif.bitlyGifUrl);
-          } )
+          IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () => Share.share(gif.bitlyGifUrl))
         ],
       ),
       backgroundColor: Colors.black,
